@@ -5,6 +5,8 @@ function App() {
     //TODO what is BEM convention
     <div className="app">
       <h1>Hello </h1>
+      {/* Header */}
+      {/* Home */}
     </div>
   );
 }
