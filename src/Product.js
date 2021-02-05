@@ -1,22 +1,22 @@
 import React from 'react'
 import './Product.css'
 import GradeIcon from '@material-ui/icons/Grade';
-function Product() {
+function Product({id,title,image,price,rating}) {
     return (
         <div className="product">
-            <p className="product__info">the lean startup</p>
+            <p className="product__info">{title}</p>
             <p className="product__price">
                 <samll>$</samll>
-                <strong>19.99</strong>
+                <strong>{price}</strong>
             </p>
             <div className="product__rating">
-                <GradeIcon/>
-                <GradeIcon/>
-                <GradeIcon/>
-                <GradeIcon/>
-                <GradeIcon/>
+                {
+                    Array(rating).fill().map((_,i) => (
+                        <GradeIcon/>
+                    ))
+                }
             </div>
-            <img  src="https://images-na.ssl-images-amazon.com/images/I/81-QB7nDh4L.jpg" />
+            <img  src={image} />
             <button>Add to Cart</button>
         </div>
     )
