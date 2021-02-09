@@ -5,7 +5,7 @@ import { useStateValue } from './StateProvider';
 import CheckoutProducts from './CheckoutProducts';
 
 function Checkout() {
-    const [{basket},dispatch] = useStateValue();
+    const [{basket,user},dispatch] = useStateValue();
     var x = JSON.stringify(basket);
     return (
         <div className="checkout">
@@ -14,6 +14,7 @@ function Checkout() {
 
 
                 <div>
+                    <h3>Helloo, {user?.email} </h3> 
                     <h2 className="checkout__title">
                         Your Shopping Cart
                     </h2>

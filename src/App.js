@@ -4,8 +4,33 @@ import Home from './Home';
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import Checkout from './Checkout';
 import Login from './Login';
+import { auth } from './firebase';
+import { useStateValue } from './StateProvider';
+import React, { useEffect, useState } from "react"
 
 function App() {
+  const [{},dispatch] = useStateValue();
+
+  useEffect(() => {
+    auth.onAuthStateChanged(authUser => {
+      console.log('THE USER IS >>>>',authUser)
+
+      if(authUser){
+        //logged in
+
+        dispatch({
+          type:'SET_USER',
+          user:authUser
+        })
+      }else{
+        //logged out
+        dispatch({
+          type:'SET_USER',
+          user:null
+        })
+      }
+    })
+  }, [])
   return (
     //TODO what is BEM convention
     <Router>
