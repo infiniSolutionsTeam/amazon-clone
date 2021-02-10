@@ -24,10 +24,10 @@ function Payment() {
                 {
                     method : 'post',
                     //Stripe expects the total in  a currencies sub unit
-                    url:`/payments/create?total=${getBasketTotal(basket)}`
+                    url:`/payments/create?total=${getBasketTotal(basket) * 100}`
             
-            }
-            )
+            });
+            setClientSecret(response.data.clientSecret)
         }
 
 
@@ -43,7 +43,17 @@ function Payment() {
         setProcessing(true);
 
 
-        const payload = await stripe
+        const payload = await stripe.confirmCardPayment(clientSecret,{
+            payment_method:{
+                card:elements.getElement(CardElement)
+            }
+        }).then(({paymentIntent})=>{
+            //payment intent = payment confirmation
+            setSucceded(true)
+            setError(null)
+            setProcessing(false)
+            history.replace('/orders')
+        })
     }
 
     const handleChange = event=>{
